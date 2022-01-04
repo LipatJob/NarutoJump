@@ -1,36 +1,35 @@
-package game;
+package core;
 
-import core.Constants;
-import game.entities.Lava;
-import game.entities.Naruto;
-import game.entities.Platform;
-import game.ui.Background;
-import game.ui.GameOverMessage;
-import game.ui.Instructions;
-import game.ui.Score;
+import core.entities.Lava;
+import core.entities.Naruto;
+import core.entities.Platform;
+import core.ui.Background;
+import core.ui.GameOverMessage;
+import core.ui.Instructions;
+import core.ui.Score;
+import infrastructure.Constants;
 import lib.AbstractGameLoop;
 import lib.Transform;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 public class FixedGameLoop extends AbstractGameLoop {
     private final JPanel canvas;
+
     private final Naruto naruto;
     private final Lava lava;
-    private final GameOverMessage gameOverMessage;
     private final ArrayList<Platform> platforms;
+
+    private final InputManager inputManager;
+    private final GameOverMessage gameOverMessage;
     private final Background background;
     private final Score score;
     private final Instructions instructions;
     private final EnvironmentManager environmentManager;
 
-    private boolean isMovingLeft = false;
-    private boolean isMovingRight = false;
-    private boolean isJumping = false;
     private boolean isGameOver = false;
     private boolean isGameStarted = false;
 
@@ -38,6 +37,7 @@ public class FixedGameLoop extends AbstractGameLoop {
         super();
         this.canvas = canvas;
         final int platformCount = 12;
+        inputManager = InputManager.getInstance();
 
         // Initialize Entities
         this.naruto = new Naruto(0, 0);
@@ -59,23 +59,17 @@ public class FixedGameLoop extends AbstractGameLoop {
 
     @Override
     public void updateFrame() {
+        if (!isGameStarted && inputManager.isKeyPressed(KeyEvent.VK_SPACE)) {
+            isGameStarted = true;
+            naruto.jump();
+        }
+
         // Handle Game Over State
         if (isGameOver || !isGameStarted) {
             return;
         }
         isGameOver = environmentManager.isGameOver();
 
-        // Handle Player Actions
-        if (isMovingLeft) {
-            naruto.moveLeft();
-        } else if (isMovingRight) {
-            naruto.moveRight();
-        } else {
-            naruto.idle();
-        }
-        if (isJumping) {
-            isJumping = false;
-        }
 
         // Update Entities
         environmentManager.update();
@@ -109,42 +103,11 @@ public class FixedGameLoop extends AbstractGameLoop {
     }
 
     void setupInputHandler() {
-        canvas.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                switch (e.getKeyCode()) {
-                    case KeyEvent.VK_A:
-                        isMovingLeft = true;
-                        break;
-                    case KeyEvent.VK_D:
-                        isMovingRight = true;
-                        break;
-                    case KeyEvent.VK_SPACE:
-                        if (!isGameStarted) {
-                            isGameStarted = true;
-                            naruto.jump();
-                        }
-                        if (isGameOver) {
-                            restartGame();
-                        } else {
-                            naruto.jump();
-                        }
-                        break;
-                }
-            }
+        inputManager.addKeyCode(KeyEvent.VK_A);
+        inputManager.addKeyCode(KeyEvent.VK_D);
+        inputManager.addKeyCode(KeyEvent.VK_SPACE);
 
-            @Override
-            public void keyReleased(KeyEvent e) {
-                switch (e.getKeyCode()) {
-                    case KeyEvent.VK_A:
-                        isMovingLeft = false;
-                        break;
-                    case KeyEvent.VK_D:
-                        isMovingRight = false;
-                        break;
-                }
-            }
-        });
+        canvas.addKeyListener(inputManager.getKeyAdapter());
     }
 
     private void restartGame() {

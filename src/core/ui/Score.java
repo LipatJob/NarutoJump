@@ -1,4 +1,4 @@
-package game.ui;
+package core.ui;
 
 import lib.Renderable;
 import lib.Transform;

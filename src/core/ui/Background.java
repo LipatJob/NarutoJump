@@ -1,6 +1,6 @@
-package game.ui;
+package core.ui;
 
-import core.Constants;
+import infrastructure.Constants;
 import lib.Renderable;
 import lib.SpriteRenderer;
 import lib.Transform;

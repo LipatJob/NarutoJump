@@ -1,11 +1,16 @@
-package game.entities;
+package core.entities;
 
-import core.Constants;
+import core.InputManager;
+import infrastructure.Constants;
 import lib.RectangleCollider;
 import lib.Transform;
 import lib.Updatable;
 
+import java.awt.event.KeyEvent;
+
 public class Naruto implements Updatable {
+    private final InputManager inputManager;
+
     public final Transform transform;
     public final RectangleCollider feetCollider;
     public final NarutoAnimator animationManager;
@@ -19,6 +24,8 @@ public class Naruto implements Updatable {
     private int jumpEffectLeft;
 
     public Naruto(int x, int y) {
+        inputManager = InputManager.getInstance();
+
         this.transform = new Transform(x, y);
         this.animationManager = new NarutoAnimator(this);
         this.width = animationManager.width;
@@ -51,6 +58,8 @@ public class Naruto implements Updatable {
 
     @Override
     public void update() {
+        handleInput();
+
         animationManager.update();
 
         // apply gravity
@@ -78,6 +87,20 @@ public class Naruto implements Updatable {
         }
         if (transform.x < 0) {
             transform.x = 0;
+        }
+    }
+
+    private void handleInput() {
+        if (inputManager.isKeyPressed(KeyEvent.VK_A)) {
+            moveLeft();
+        } else if (inputManager.isKeyPressed(KeyEvent.VK_D)) {
+            moveRight();
+        } else {
+            idle();
+        }
+
+        if (inputManager.isKeyPressed(KeyEvent.VK_SPACE)) {
+            jump();
         }
     }
 }

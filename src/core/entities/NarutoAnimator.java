@@ -1,4 +1,4 @@
-package game.entities;
+package core.entities;
 
 import lib.AnimatedSprite;
 import lib.Renderable;

@@ -1,6 +1,6 @@
-package game.entities;
+package core.entities;
 
-import core.Constants;
+import infrastructure.Constants;
 import lib.RectangleCollider;
 import lib.SpriteRenderer;
 import lib.Transform;

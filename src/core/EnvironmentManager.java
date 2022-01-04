@@ -1,9 +1,9 @@
-package game;
+package core;
 
-import core.Constants;
-import game.entities.Lava;
-import game.entities.Naruto;
-import game.entities.Platform;
+import infrastructure.Constants;
+import core.entities.Lava;
+import core.entities.Naruto;
+import core.entities.Platform;
 import lib.RectangleCollider;
 import lib.Updatable;
 

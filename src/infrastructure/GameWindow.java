@@ -1,6 +1,6 @@
-package core;
+package infrastructure;
 
-import game.FixedGameLoop;
+import core.FixedGameLoop;
 
 import javax.swing.*;
 import java.awt.*;

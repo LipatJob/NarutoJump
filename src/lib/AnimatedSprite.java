@@ -1,6 +1,6 @@
 package lib;
 
-import core.AssetsManager;
+import infrastructure.AssetsManager;
 
 import java.awt.*;
 

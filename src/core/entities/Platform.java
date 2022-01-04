@@ -1,4 +1,4 @@
-package game.entities;
+package core.entities;
 
 import lib.RectangleCollider;
 import lib.SpriteRenderer;

@@ -1,4 +1,4 @@
-package core;
+package infrastructure;
 
 public class Constants {
     public final static int MAX_WIDTH = 800;
