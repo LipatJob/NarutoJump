@@ -59,19 +59,19 @@ public class NarutoAnimator implements Updatable, Renderable {
 
     @Override
     public void update() {
-        // jumping/falling state
+        // jumping/falling
         if (naruto.velocityY != 0 && naruto.velocityX > 0) {
             currentSprite = jumpingRightAnimation;
         } else if (naruto.velocityY != 0 && naruto.velocityX < 0) {
             currentSprite = jumpingLeftAnimation;
         }
-        // walking state
+        // walking
         else if (naruto.velocityX > 0) {
             currentSprite = walkingRightAnimation;
         } else if (naruto.velocityX < 0) {
             currentSprite = walkingLeftAnimation;
         }
-        // idle state
+        // idle
         else if (previousVelocityX > 0) {
             currentSprite = idleRightAnimation;
         } else if (previousVelocityX < 0) {

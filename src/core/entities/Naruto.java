@@ -91,15 +91,15 @@ public class Naruto implements Updatable {
     }
 
     private void handleInput() {
-        if (inputManager.isKeyPressed(KeyEvent.VK_A)) {
+        if (inputManager.isKeyHeldDown(KeyEvent.VK_A)) {
             moveLeft();
-        } else if (inputManager.isKeyPressed(KeyEvent.VK_D)) {
+        } else if (inputManager.isKeyHeldDown(KeyEvent.VK_D)) {
             moveRight();
         } else {
             idle();
         }
 
-        if (inputManager.isKeyPressed(KeyEvent.VK_SPACE)) {
+        if (inputManager.isKeyHeldDown(KeyEvent.VK_SPACE)) {
             jump();
         }
     }

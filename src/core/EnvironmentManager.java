@@ -84,7 +84,7 @@ public class EnvironmentManager implements Updatable {
         return false;
     }
 
-    public void scrollEnvironment(float amount) {
+    private void scrollEnvironment(float amount) {
         for (Platform platform : platforms) {
             platform.transform.y += amount;
         }
@@ -107,11 +107,13 @@ public class EnvironmentManager implements Updatable {
                      (random.nextFloat() * 150);         // Add a random number from 0 to 100 to the gap
 
         // Platforms that are too far must be moved nearer
+        int maxDistance = 400;
         float distance = newX - highestPlatform.transform.x;
-        if (Math.abs(distance) > 400) {
+        if (Math.abs(distance) > maxDistance) {
             int direction = distance > 0 ? 1 : -1;
-            newX = highestPlatform.transform.x + (direction * 400);
-            newY = highestPlatform.transform.y - 50 - (random.nextFloat()) * 25;
+            float offset = maxDistance + (random.nextFloat() * 50);
+            newX = highestPlatform.transform.x + offset * direction;
+            newY = highestPlatform.transform.y - 50 - (random.nextFloat() * 25);
         }
 
         platform.transform.y = newY;

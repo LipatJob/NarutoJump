@@ -6,9 +6,9 @@ import java.util.Dictionary;
 import java.util.Hashtable;
 
 public class InputManager {
-    private Dictionary<Integer, Boolean> keyMappings;
+    private final Dictionary<Integer, Boolean> keyMappings;
     private static InputManager instance = null;
-    private KeyAdapter keyAdapter;
+    private final KeyAdapter keyAdapter;
 
     private InputManager() {
         keyMappings = new Hashtable<>();
@@ -32,11 +32,11 @@ public class InputManager {
         return instance;
     }
 
-    public void addKeyCode(int keyCode) {
+    public void listenToKeyCode(int keyCode) {
         keyMappings.put(keyCode, false);
     }
 
-    public boolean isKeyPressed(int keyCode) {
+    public boolean isKeyHeldDown(int keyCode) {
         return keyMappings.get(keyCode);
     }
 

@@ -15,16 +15,16 @@ public class GameWindow extends JFrame {
     public GameWindow() {
         gameCanvas = new GameCanvas();
 
-        // setup game loop
+        // Setup game loop
         gameLoop = new FixedGameLoop(gameCanvas);
         gameLoop.run();
 
-        // setup window
+        // Setup window
         this.setSize(Constants.MAX_WIDTH, Constants.MAX_HEIGHT);
         this.setResizable(false);
         this.add(gameCanvas);
 
-        // exit the program when the window is closed
+        // Exit the program when the window is closed
         this.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
